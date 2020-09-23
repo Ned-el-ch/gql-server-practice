@@ -1,0 +1,35 @@
+query {
+  publishersWithName: publishers(name: "Faux Books") {
+    name
+    genre
+    books(yearRange: { start: 1970, end: 2020 }) {
+      title
+    }
+  }
+  publishersWithGenre: publishers(genre: "Non-Fiction") {
+    name
+    genre
+    books(yearRange: { start: 1970, end: 2020 }) {
+      title
+    }
+  }
+  justPublishers: publishers {
+    name
+    genre
+    books {
+      title
+    }
+  }
+  libraries {
+    books(publisher: "Faux Books", yearRange: { start: 1998, end: 2015 }) {
+      title
+      year
+      author {
+        name
+      }
+      publisher {
+        name
+      }
+    }
+  }
+}
