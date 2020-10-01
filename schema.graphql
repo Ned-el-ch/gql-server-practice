@@ -1,68 +1,50 @@
-const { buildSchema } = require('graphql');
 const { gql } = require('apollo-server');
 
 exports.typeDefs = gql`
-  # A Library contains books
-  type Library {
-    # A unique identifier for each library
-    id: Int!
-    # The city in which the library is located
-    city: String!
-    # The branch of the individual library
-    branch: String!
-    # A list of books that are in this branch
-    books(publisher: String, yearRange: YearRange): [Book!]!
+
+  fragment NameParts on User {
+    firstName: String
+    lastName: String
   }
 
-  input YearRange {
-    start: Int!
-    end: Int!
+  enum UserRole {
+    CONSUMER
+    COACH
+    CALL_CENTER_AGENT
   }
 
-  type Book {
-    id: Int!
-    # Title of the book
-    title: String!
-    # Author of the book
-    author: Author!
-    # Year of first issue
-    year: Int!
-    # Publisher information
-    publisher: Publisher!
+  interface User {
+    id: ID!
+    NameParts
   }
 
-  type Author {
-    # Author name
-    name: String!
-    # Books this author has written
-    books: [Book!]!
+  type Consumer implements User {
+    role: UserRole!
   }
 
-  type Publisher {
-    id: Int!
-    # Name of publisher
-    name: String!
-    """
-    Main genre of specialization
-    """
-    genre: String!
-    "all books the publisher has issued"
-    books(yearRange: YearRange): [Book!]!
+  type Coach implements User {
+    role: UserRole!
   }
-  """
-  Sample desctiption of schema
-  """
 
+  type Call_Center_Agent implements User {
+    role: UserRole!
+  }
+
+  type Device {
+
+  }
+
+  input DeviceInput {
+    deviceID: String!
+    token: String!
+  }
+
+  type Mutation {
+    activateDevice(deviceInfo: DeviceInput): String!
+    
+  }
+  
   type Query {
-    # All libraries
-    libraries(city: String): [Library!]!
-    # Specific library by id
-    library(id: Int!): Library!
-    # All books
-    books(last: Int, id: Int, publisher: String): [Book!]!
-    # Specific book by id
-    book(id: Int!): Book
-    # All publishers, by name, or genre
-    publishers(name: String, genre: String): [Publisher!]!
+    
   }
 `;

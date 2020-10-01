@@ -1,0 +1,68 @@
+const { buildSchema } = require('graphql');
+const { gql } = require('apollo-server');
+
+exports.typeDefs = gql`
+  # A Library contains books
+  type Library {
+    # A unique identifier for each library
+    id: Int!
+    # The city in which the library is located
+    city: String!
+    # The branch of the individual library
+    branch: String!
+    # A list of books that are in this branch
+    books(publisher: String, yearRange: YearRange): [Book!]!
+  }
+
+  input YearRange {
+    start: Int!
+    end: Int!
+  }
+
+  type Book {
+    id: Int!
+    # Title of the book
+    title: String!
+    # Author of the book
+    author: Author!
+    # Year of first issue
+    year: Int!
+    # Publisher information
+    publisher: Publisher!
+  }
+
+  type Author {
+    # Author name
+    name: String!
+    # Books this author has written
+    books: [Book!]!
+  }
+
+  type Publisher {
+    id: Int!
+    # Name of publisher
+    name: String!
+    """
+    Main genre of specialization
+    """
+    genre: String!
+    "all books the publisher has issued"
+    books(yearRange: YearRange): [Book!]!
+  }
+  """
+  Sample desctiption of schema
+  """
+
+  type Query {
+    # All libraries
+    libraries(city: String): [Library!]!
+    # Specific library by id
+    library(id: Int!): Library!
+    # All books
+    books(last: Int, id: Int, publisher: String): [Book!]!
+    # Specific book by id
+    book(id: Int!): Book
+    # All publishers, by name, or genre
+    publishers(name: String, genre: String): [Publisher!]!
+  }
+`;
