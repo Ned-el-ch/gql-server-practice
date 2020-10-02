@@ -37,9 +37,9 @@ enum ConsumableType {
 }
 
 enum ActivationStatus {
-    UNKNOWN
-    ACTIVATED
-    DEACTIAVTED
+  UNKNOWN
+  ACTIVATED
+  DEACTIAVTED
 }
 
 interface Asset {
@@ -61,6 +61,7 @@ type Activation {
   """
   activationStatus: ActivationStatus!
 }
+
 
 type Material {
   """
@@ -131,6 +132,7 @@ input DeviceDeactivationInput {
 
 type Query {
   device(auth: AuthPayload!): Device!
+  activationStatus(deviceIDs: [ID!]!): ActivationStatus!
 }
 
 type Mutation {
