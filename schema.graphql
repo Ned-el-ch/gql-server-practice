@@ -16,7 +16,7 @@ interface Event {
 Represents a user in the Global Asset Management Solution
 """
 
-type User {
+interface User {
   id: String!
   username: String!
 }
@@ -47,7 +47,7 @@ interface Asset {
 }
 
 interface Tracking {
-
+  placeholder: String
 }
 
 type Activation {
@@ -62,7 +62,6 @@ type Activation {
   activationStatus: ActivationStatus!
 }
 
-
 type Material {
   """
   Device Management attributes
@@ -75,6 +74,7 @@ type Material {
 }
 
 type Device implements Asset {
+  id: ID!
   serialNumber: String!
   codentifyID: String!
   activation: Activation!
@@ -82,41 +82,39 @@ type Device implements Asset {
 }
 
 type Accessory implements Asset {
+  id: ID!
   serialNumber: String
   tracking: Tracking
 }
 
 type Consumable implements Asset {
+  id: ID!
   consumableType: ConsumableType!
   tracking: Tracking!
-}
-
-interface Asset {
-  """
-  SFDC Attributes
-  """
-  id: ID!
-  """
-  IOT Platform attributes
-  """
 }
 
 type Consumer implements User {
   """
   A list of all of the consumer's registered devices
   """
+  id: String!
+  username: String!
   deviceList: [Device!]!
 }
 
 type Coach implements User {
-
+  id: String!
+  username: String!
+  placeholder: String
 }
 
 type CallCenterAgent implements User {
-
+  id: String!
+  username: String!
+  placeholder: String
 }
 
-type AuthPayload {
+input AuthPayload {
   token: String!
 }
 

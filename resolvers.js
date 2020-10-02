@@ -1,10 +1,10 @@
 const { data } = require("./data.js")
-const { users } = data;
+const { devices } = data;
 
 exports.resolvers = {
   Query: {
-    users: (parent, args) => {
-      return users;
+    device: (parent, args) => {
+      return devices[0];
     }
   }
 }
