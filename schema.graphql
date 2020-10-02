@@ -2,53 +2,112 @@ const { gql } = require('apollo-server');
 
 exports.typeDefs = gql`
 
-  fragment NameParts on User {
-    firstName: String
-    lastName: String
-  }
+enum empluy {
+  CONSUMER
+  COACH
+  EMPLOYEE
+}
 
-  enum UserRole {
-    CONSUMER,
-    COACH,
-    CALL_CENTER_AGENT
-  }
+enum eventType {
+  DEVICE_DATA_HAMGE
+  ASYNC
+}
 
-  interface User {
-    id: ID!
-    NameParts
-  }
+interface Event {
+  id: ID!
+  name: String!
+}
 
-  type Consumer implements User {
-    role: UserRole!
-  }
+"""
+Represents a user in the Global Asset Management Solution
+"""
 
-  type Coach implements User {
-    role: UserRole!
-  }
+type user {
+  id: String!
+  username: String!
+  consumer_type: consumerType!
+}
 
-  type Call_Center_Agent implements User {
-    role: UserRole!
-  }
+"""
+Define
+"""
 
-  type Device {
+enum ConsumableType {
+  """
+  Heat not burn consumable
+  """
+  HEET
+  """
+  Liquid consumable
+  """
+  POD
+}
 
-  }
+enum Activation_Status {
+    UNKNOWN
+    ACTIVATED
+    DEACTIAVTED
+}
 
-  input DeviceInput {
-    deviceID: String!
-    token: String!
-  }
+interface Asset {
+  id: ID!
+}
 
-  type Mutation {
-    activateDevice(deviceInfo: DeviceInput): String!
-    
-  }
-  
-  type Query {
-    
-  }
+interface Tracking {
 
-  interface Asset {
-    
-  }
+}
+
+type Activation {
+  """
+  flag to specify iof activation is a requirement for a device
+  """
+  requiresActivation: Boolean
+  """
+  flag to specify the actual activation status of the device
+  this should be set only when reuires_activation is set to true
+  """
+  activationStatus: ACTIVATION_STATUS
+}
+
+type Material {
+  """
+  Device Management attributes
+  """
+  description: String!
+  group: String!
+  modelNumber: String!
+  brandFamily: String!
+  color: String!
+}
+
+type Device implements Asset {
+  serialNumber: String!
+  codentifyID: String!
+  activation: Activation!
+  material: Material!
+}
+
+type Accessory implements Asset {
+  serialNumber: String
+  tracking: Tracking
+}
+
+type Consumable implements Asset {
+  consumableType: ConsumableType!
+  tracking: Tracking!
+}
+
+interface Asset {
+  """
+  SFDC Attributes
+  """
+  id: ID!
+  """
+  IOT Platform attributes
+  """
+}
+
+interface Device {
+
+}
 `;
