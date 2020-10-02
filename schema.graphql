@@ -130,7 +130,7 @@ input DeviceDeactivationInput {
 }
 
 type Query {
-  asset(auth: AuthPayload!): 
+  device(auth: AuthPayload!): Device!
 }
 
 type Mutation {
