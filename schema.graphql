@@ -8,8 +8,8 @@ exports.typeDefs = gql`
   }
 
   enum UserRole {
-    CONSUMER
-    COACH
+    CONSUMER,
+    COACH,
     CALL_CENTER_AGENT
   }
 
@@ -45,6 +45,10 @@ exports.typeDefs = gql`
   }
   
   type Query {
+    
+  }
+
+  interface Asset {
     
   }
 `;
