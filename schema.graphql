@@ -36,7 +36,7 @@ enum ConsumableType {
   POD
 }
 
-enum Activation_Status {
+enum ActivationStatus {
     UNKNOWN
     ACTIVATED
     DEACTIAVTED
@@ -54,12 +54,12 @@ type Activation {
   """
   flag to specify iof activation is a requirement for a device
   """
-  requiresActivation: Boolean
+  requiresActivation: Boolean!
   """
   flag to specify the actual activation status of the device
   this should be set only when reuires_activation is set to true
   """
-  activationStatus: ACTIVATION_STATUS
+  activationStatus: ActivationStatus!
 }
 
 type Material {
@@ -113,5 +113,28 @@ type Coach implements User {
 
 type CallCenterAgent implements User {
 
+}
+
+type AuthPayload {
+  token: String!
+}
+
+input DeviceActivationInput {
+  assetID: ID!
+  authPayload: AuthPayload!
+}
+
+input DeviceDeactivationInput {
+  assetID: ID!
+  authPayload: AuthPayload!
+}
+
+type Query {
+  asset(auth: AuthPayload!): 
+}
+
+type Mutation {
+  activateDevice(activationInput: DeviceActivationInput!): String! 
+  deactivateDevice(activationInput: DeviceDeactivationInput!): String! 
 }
 `;
