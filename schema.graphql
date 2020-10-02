@@ -74,6 +74,7 @@ type Material {
 }
 
 type Device implements Asset {
+  # This comment should appear in apollo
   id: ID!
   serialNumber: String!
   codentifyID: String!
@@ -94,9 +95,7 @@ type Consumable implements Asset {
 }
 
 type Consumer implements User {
-  """
-  A list of all of the consumer's registered devices
-  """
+# A list of all of the consumer's registered devices
   id: String!
   username: String!
   deviceList: [Device!]!
