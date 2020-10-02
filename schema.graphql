@@ -2,13 +2,7 @@ const { gql } = require('apollo-server');
 
 exports.typeDefs = gql`
 
-enum empluy {
-  CONSUMER
-  COACH
-  EMPLOYEE
-}
-
-enum eventType {
+enum EventType {
   DEVICE_DATA_HAMGE
   ASYNC
 }
@@ -22,10 +16,9 @@ interface Event {
 Represents a user in the Global Asset Management Solution
 """
 
-type user {
+type User {
   id: String!
   username: String!
-  consumer_type: consumerType!
 }
 
 """
@@ -107,7 +100,18 @@ interface Asset {
   """
 }
 
-interface Device {
+type Consumer implements User {
+  """
+  A list of all of the consumer's registered devices
+  """
+  deviceList: [Device!]!
+}
+
+type Coach implements User {
+
+}
+
+type CallCenterAgent implements User {
 
 }
 `;
