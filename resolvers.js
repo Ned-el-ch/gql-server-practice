@@ -1,10 +1,15 @@
 const { data } = require("./data.js")
-const { devices } = data;
+const { assets } = data;
 
 exports.resolvers = {
   Query: {
     device: (parent, args) => {
-      return devices[0];
+      console.log(parent, args)
+      return assets;
+    },
+    someAsset: (parent, args) => {
+      console.log(parent, args)
+      return assets
     }
   }
 }

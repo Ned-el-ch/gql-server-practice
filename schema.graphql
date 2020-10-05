@@ -130,6 +130,7 @@ input DeviceDeactivationInput {
 type Query {
   device(auth: AuthPayload!): Device!
   activationStatus(deviceIDs: [ID!]!): ActivationStatus!
+  someAsset: Asset!
 }
 
 type Mutation {
